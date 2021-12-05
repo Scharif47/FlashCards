@@ -1,23 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { Routes, Route } from "react-router";
+import CardPage from "./routes/CardPage";
+import CardsPage from "./routes/CardsPage";
+import Home from "./routes/Home";
+import Footer from "./components/Footer";
 
 function App() {
+  const [cards, setCards] = useState([]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="App container mx-auto text-center pt-16">
+      <Routes>
+        <Route path="/" element={<Home cards={cards} setCards={setCards} />} />
+        <Route path="cards" element={<CardsPage />}>
+          <Route path=":card" element={<CardPage />} />
+        </Route>
+        <Route path="*" element={<h1>There is nothing here!</h1>} />
+      </Routes>
+      <Footer />
     </div>
   );
 }
