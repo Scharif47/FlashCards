@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
-function CardInput({ cards, setCards }) {
+function CardEdit({ cards, setCards, cardid, setUseEdit }) {
   const [userInputFront, setUserInputFront] = useState("");
   const [userInputBack, setUserInputBack] = useState("");
 
-  const addCard = () => {
+  const editCard = () => {
     if (userInputFront === "" || userInputBack === "") {
       alert("Fill in both fields");
     } else {
@@ -13,14 +13,15 @@ function CardInput({ cards, setCards }) {
         cardBack: userInputBack,
       };
 
-      setCards([...cards, tempCard]);
+      setCards(cards.map((card, i) => (i === cardid ? tempCard : card)));
       setUserInputFront("");
       setUserInputBack("");
+      setUseEdit(false);
     }
   };
 
   return (
-    <div className="flex flex-col justify-center  w-60 mx-auto sm:flex-row sm:w-10/12 py-2 px-2 rounded-2xl bg-green-500">
+    <div className="flex flex-col justify-center  w-60 mx-auto sm:flex-row sm:w-10/12 py-2 px-2 rounded-2xl bg-red-300">
       <input
         placeholder="Front of Card"
         className="border-2 border-red-700 rounded-xl pl-1"
@@ -36,13 +37,13 @@ function CardInput({ cards, setCards }) {
         value={userInputBack}
       />
       <button
-        className="shadow-xl px-4 py-1 bg-blue-500 rounded-full"
-        onClick={addCard}
+        className="shadow-xl px-4 py-1 bg-red-500 rounded-full"
+        onClick={editCard}
       >
-        Add Card
+        Edit Card
       </button>
     </div>
   );
 }
 
-export default CardInput;
+export default CardEdit;

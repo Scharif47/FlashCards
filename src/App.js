@@ -1,20 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router";
 import CardPage from "./routes/CardPage";
-import CardsPage from "./routes/CardsPage";
 import Home from "./routes/Home";
 import Footer from "./components/Footer";
 
 function App() {
-  const [cards, setCards] = useState([]);
+  const [cards, setCards] = useState(
+    JSON.parse(localStorage.getItem("cards")) || []
+  );
+
+  useEffect(() => {
+    localStorage.setItem("cards", JSON.stringify(cards));
+  }, [cards]);
 
   return (
     <div className="App container mx-auto text-center pt-16">
       <Routes>
         <Route path="/" element={<Home cards={cards} setCards={setCards} />} />
-        <Route path="cards" element={<CardsPage />}>
-          <Route path=":card" element={<CardPage />} />
-        </Route>
+        <Route path=":cardid" element={<CardPage cards={cards} />} />
+
         <Route path="*" element={<h1>There is nothing here!</h1>} />
       </Routes>
       <Footer />

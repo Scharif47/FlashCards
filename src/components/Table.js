@@ -1,15 +1,25 @@
 import React from "react";
 
-function Table({ cards, setCards }) {
+function Table({ cards, setCards, useEdit, setUseEdit, setCardid }) {
   const onDelete = (index) => {
     setCards(cards.filter((card, i) => i !== index));
   };
 
+  const handleEdit = (index) => {
+    setUseEdit(!useEdit);
+    setCardid(index);
+  };
+
   const renderCards = cards.map((card, i) => (
-    <tr key={i} className="bg-red-300 border-2 border-red-900">
+    <tr
+      key={i}
+      className="bg-red-400 border-2 border-red-900 odd:bg-red-300 hover:bg-red-200"
+    >
       <td>{card.cardFront}</td>
       <td>{card.cardBack}</td>
-      <td className="cursor-pointer">Edit</td>
+      <td onClick={() => handleEdit(i)} className="cursor-pointer">
+        Edit
+      </td>
       <td onClick={() => onDelete(i)} className="cursor-pointer">
         X
       </td>
@@ -26,15 +36,7 @@ function Table({ cards, setCards }) {
           <th>Delete</th>
         </tr>
       </thead>
-      <tbody>
-        {/* <tr className="bg-red-300">
-          <td>Front</td>
-          <td>Back</td>
-          <td>Edit</td>
-          <td>Delete</td>
-        </tr> */}
-        {renderCards}
-      </tbody>
+      <tbody>{renderCards}</tbody>
     </table>
   );
 }
