@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { useParams } from "react-router";
 import Card from "../components/Card";
 
 function CardPage({ cards }) {
+  const [isActive, setIsActive] = useState(false);
+
   const { cardid } = useParams();
   const useCards = cards || JSON.parse(localStorage.getItem("cards"));
+
+  useEffect(() => {
+    setIsActive(false)
+  }, [cardid])
 
   return (
     <div>
@@ -14,7 +20,12 @@ function CardPage({ cards }) {
       ) : (
         <div>
           <h1 className="text-4xl">Card Viewer</h1>
-          <Card cards={useCards} cardid={cardid} />
+          <Card
+            cards={useCards}
+            cardid={cardid}
+            isActive={isActive}
+            setIsActive={setIsActive}
+          />
           {cardid >= 1 && (
             <NavLink
               to={`/${Number(cardid) - 1}`}

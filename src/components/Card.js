@@ -1,8 +1,8 @@
-import React, {useState} from "react";
+import React from "react";
 import "./Card.css";
 
-function Card({ cards, cardid }) {
-  const [isActive, setIsActive] = useState(false);
+function Card({ cards, cardid, isActive, setIsActive }) {
+  /* const [isActive, setIsActive] = useState(false); */
 
   const toggleClass = () => {
     setIsActive(!isActive);
