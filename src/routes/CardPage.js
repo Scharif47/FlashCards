@@ -3,38 +3,40 @@ import { NavLink } from "react-router-dom";
 import { useParams } from "react-router";
 import Card from "../components/Card";
 
-function CardPage({ cards }) {
+function CardPage({ state }) {
   const [isActive, setIsActive] = useState(false);
 
-  const { cardid } = useParams();
-  const useCards = cards || JSON.parse(localStorage.getItem("cards"));
+  const { pageId } = useParams();
+  const useCards = state.cards || JSON.parse(localStorage.getItem("cards"));
 
   useEffect(() => {
     setIsActive(false)
-  }, [cardid])
+  }, [pageId])
+
+  console.log("From the CardPage: ", "page id: ", pageId, "card length: ", state.cards.length)
 
   return (
     <div>
-      {cardid >= cards.length || cardid < 0 || isNaN(cardid) ? (
+      {pageId >= state.cards.length || pageId < 0 || isNaN(pageId) ? (
         <h1>There is nothing here!</h1>
       ) : (
         <div>
           <h1 className="text-4xl">Card Viewer</h1>
           <Card
             cards={useCards}
-            cardid={cardid}
+            pageId={pageId}
             isActive={isActive}
             setIsActive={setIsActive}
           />
-          {cardid >= 1 && (
+          {pageId >= 1 && (
             <NavLink
-              to={`/${Number(cardid) - 1}`}
+              to={`/${Number(pageId) - 1}`}
               className="shadow-xl px-4 py-1 bg-blue-500 rounded-full mr-2"
             >
               Previous Card
             </NavLink>
           )}
-          {Number(cardid) === cards.length - 1 ? (
+          {Number(pageId) === state.cards.length - 1 ? (
             <NavLink
               to="/0"
               className="shadow-xl px-4 py-1 bg-blue-500 rounded-full ml-2"
@@ -43,7 +45,7 @@ function CardPage({ cards }) {
             </NavLink>
           ) : (
             <NavLink
-              to={`/${Number(cardid) + 1}`}
+              to={`/${Number(pageId) + 1}`}
               className="shadow-xl px-4 py-1 bg-blue-500 rounded-full ml-2"
             >
               Next Card

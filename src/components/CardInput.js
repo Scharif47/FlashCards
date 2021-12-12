@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function CardInput({ cards, setCards }) {
+function CardInput({ dispatch }) {
   const [userInputFront, setUserInputFront] = useState("");
   const [userInputBack, setUserInputBack] = useState("");
 
@@ -8,12 +8,11 @@ function CardInput({ cards, setCards }) {
     if (userInputFront === "" || userInputBack === "") {
       alert("Fill in both fields");
     } else {
-      const tempCard = {
+      dispatch({
+        type: "card-added",
         cardFront: userInputFront,
         cardBack: userInputBack,
-      };
-
-      setCards([...cards, tempCard]);
+      });
       setUserInputFront("");
       setUserInputBack("");
     }

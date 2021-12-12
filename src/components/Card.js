@@ -1,12 +1,12 @@
 import React from "react";
 import "./Card.css";
 
-function Card({ cards, cardid, isActive, setIsActive }) {
+function Card({ cards, pageId, isActive, setIsActive }) {
   /* const [isActive, setIsActive] = useState(false); */
 
   const toggleClass = () => {
     setIsActive(!isActive);
-  }
+  };
 
   return (
     <div
@@ -17,11 +17,15 @@ function Card({ cards, cardid, isActive, setIsActive }) {
     >
       <div className="flip-card-inner border-2 border-red-700 shadow-xl">
         <div className="flip-card-front bg-green-400 px-2">
-          <p className="mt-4 text-lg sm:text-xl md:text-2xl">{cardid && cards[cardid].cardFront}</p>
+          <p className="mt-4 text-lg sm:text-xl md:text-2xl">
+            {pageId && cards[pageId].cardFront}
+          </p>
         </div>
 
         <div className="flip-card-back bg-red-500 px-2">
-          <p className="mt-4 text-lg sm:text-xl md:text-2xl">{cardid && cards[cardid].cardBack}</p>
+          <p className="mt-4 text-lg sm:text-xl md:text-2xl">
+            {pageId && cards[pageId].cardBack}
+          </p>
         </div>
       </div>
     </div>
