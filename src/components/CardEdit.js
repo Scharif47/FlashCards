@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function CardEdit({ cards, setCards, cardid, setUseEdit }) {
+function CardEdit({ dispatch, cardid, setUseEdit }) {
   const [userInputFront, setUserInputFront] = useState("");
   const [userInputBack, setUserInputBack] = useState("");
 
@@ -8,12 +8,12 @@ function CardEdit({ cards, setCards, cardid, setUseEdit }) {
     if (userInputFront === "" || userInputBack === "") {
       alert("Fill in both fields");
     } else {
-      const tempCard = {
+      dispatch({
+        type: "card-edited",
+        id: cardid,
         cardFront: userInputFront,
         cardBack: userInputBack,
-      };
-
-      setCards(cards.map((card, i) => (i === cardid ? tempCard : card)));
+      })
       setUserInputFront("");
       setUserInputBack("");
       setUseEdit(false);

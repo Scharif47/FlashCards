@@ -1,8 +1,12 @@
 import React from "react";
 
-function Table({ cards, setCards, useEdit, setUseEdit, setCardid }) {
-  const onDelete = (index) => {
-    setCards(cards.filter((card, i) => i !== index));
+function Table({ state, dispatch, useEdit, setUseEdit, setCardid }) {
+  const onDelete = (cardId) => {    
+    dispatch({
+      type: "card-deleted",
+      id: cardId
+    })
+    
   };
 
   const handleEdit = (index) => {
@@ -10,17 +14,19 @@ function Table({ cards, setCards, useEdit, setUseEdit, setCardid }) {
     setCardid(index);
   };
 
-  const renderCards = cards.map((card, i) => (
+  const renderCards = state.cards.map((card) => (
     <tr
-      key={i}
+      key={card.id}
       className="bg-red-400 border-2 border-red-900 odd:bg-red-300 hover:bg-red-200"
     >
       <td>{card.cardFront}</td>
       <td>{card.cardBack}</td>
-      <td onClick={() => handleEdit(i)} className="cursor-pointer">
+      <td 
+      onClick={() => handleEdit(card.id)} 
+      className="cursor-pointer">
         Edit
       </td>
-      <td onClick={() => onDelete(i)} className="cursor-pointer">
+      <td onClick={() => onDelete(card.id)} className="cursor-pointer">
         X
       </td>
     </tr>

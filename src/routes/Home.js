@@ -3,7 +3,7 @@ import CardEdit from "../components/CardEdit";
 import CardInput from "../components/CardInput";
 import Table from "../components/Table";
 
-function Home({ cards, setCards }) {
+function Home({ state, dispatch }) {
   const [useEdit, setUseEdit] = useState(false);
   const [cardid, setCardid] = useState(0);
 
@@ -11,8 +11,8 @@ function Home({ cards, setCards }) {
     <div className="flex flex-col justify-center align-middle">
       <h1 className="text-4xl">Card Editor</h1>
       <Table
-        cards={cards}
-        setCards={setCards}
+        state={state}
+        dispatch={dispatch}
         useEdit={useEdit}
         setUseEdit={setUseEdit}
         setCardid={setCardid}
@@ -20,16 +20,16 @@ function Home({ cards, setCards }) {
 
       {useEdit ? (
         <CardEdit
-          cards={cards}
-          setCards={setCards}
+          dispatch={dispatch}
           cardid={cardid}
           setUseEdit={setUseEdit}
         />
       ) : (
-        <CardInput cards={cards} setCards={setCards} />
+        <CardInput 
+        dispatch={dispatch}
+        />
       )}
-      {/* <CardEdit cards={cards} setCards={setCards} />
-      <CardInput cards={cards} setCards={setCards} /> */}
+
     </div>
   );
 }
