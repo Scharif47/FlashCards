@@ -8,8 +8,6 @@ import Footer from "./components/Footer";
 function App() {
   const [state, dispatch] = useReducer(cardsReducer, initialState, init);
 
-  console.log("From the App: ", state);
-
   useEffect(() => {
     localStorage.setItem("cards", JSON.stringify(state.cards));
   }, [state.cards]);
@@ -18,7 +16,10 @@ function App() {
     <div className="App container mx-auto text-center pt-16">
       <Routes>
         <Route path="/" element={<Home state={state} dispatch={dispatch} />} />
-        <Route path=":pageId" element={<CardPage state={state} />} />
+        <Route
+          path=":pageId"
+          element={<CardPage state={state} dispatch={dispatch} />}
+        />
       </Routes>
       <Footer />
     </div>

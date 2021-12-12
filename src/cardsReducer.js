@@ -20,6 +20,26 @@ export function cardsReducer(state, action) {
         ],
       };
     }
+    case "card-flipped": {
+      return {
+        ...state,
+        cards: state.cards.map((c) =>
+          c.id === action.id
+            ? {
+                id: action.id,
+                cardFront: c.cardFront,
+                cardBack: c.cardBack,
+                flipped: !c.flipped,
+              }
+            : {
+                id: c.id,
+                cardFront: c.cardFront,
+                cardBack: c.cardBack,
+                flipped: false,
+              }
+        ),
+      };
+    }
     case "card-edited": {
       return {
         ...state,
@@ -39,6 +59,17 @@ export function cardsReducer(state, action) {
       return {
         ...state,
         cards: state.cards.filter((c) => c.id !== action.id),
+      };
+    }
+    case "page-left": {
+      return {
+        ...state,
+        cards: state.cards.map((c) => ({
+          id: c.id,
+          cardFront: c.cardFront,
+          cardBack: c.cardBack,
+          flipped: false,
+        })),
       };
     }
     default:

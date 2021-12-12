@@ -8,16 +8,12 @@ function CardEdit({ dispatch, cardid, setUseEdit }) {
     if (userInputFront === "" || userInputBack === "") {
       alert("Fill in both fields");
     } else {
-
-      // setCards(cards.map((card, i) => (i === cardid ? tempCard : card)));
-      console.log(cardid)
       dispatch({
         type: "card-edited",
         id: cardid,
         cardFront: userInputFront,
         cardBack: userInputBack,
       })
-
       setUserInputFront("");
       setUserInputBack("");
       setUseEdit(false);
